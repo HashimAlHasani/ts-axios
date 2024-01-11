@@ -1,24 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import "./App.css";
+import axios from "axios";
+
+export type Crypto = {
+  changePercent24Hr: string;
+  explorer: string;
+  id: string;
+  marketCapUsd: string;
+  maxSupply: string;
+  name: string;
+  priceUsd: string;
+  rank: string;
+  symbol: string;
+  volumeUsd24Hr: string;
+};
 
 function App() {
+  const [cryptos, setCryptos] = useState<Crypto[] | null>();
+
+  useEffect(() => {
+    const url = "https://api.coincap.io/v2/assets";
+    axios.get(url).then((response) => {
+      setCryptos(response.data.data);
+    });
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {cryptos
+        ? cryptos.map((crypto) => {
+            return <p>{crypto.name + " $" + +crypto.priceUsd}</p>;
+          })
+        : null}
     </div>
   );
 }
