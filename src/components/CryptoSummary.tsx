@@ -1,26 +1,36 @@
 import { url } from "inspector";
 import { Crypto } from "../Types";
+import { useEffect, useState } from "react";
 
 export type AppProps = {
   crypto: Crypto;
 };
 
 export default function CryptoSummary({ crypto }: AppProps): JSX.Element {
+  useEffect(() => {
+    console.log(crypto.name, amount, crypto.current_price * parseFloat(amount));
+  });
+
+  const [amount, setAmount] = useState<string>("0");
+
   return (
-    <>
-      <div style={{ display: "flex", flexDirection: "row" }}>
-        <img
-          style={{
-            width: "2rem",
-            height: "2rem",
-            paddingTop: "0.5rem",
-            margin: "0.125",
-          }}
-          src={crypto.image}
-          alt={crypto.name + "logo"}
-        />
-        <p>{crypto.name + " $" + crypto.current_price}</p>
-      </div>
-    </>
+    <div>
+      <span>{crypto.name + " $" + crypto.current_price}</span>
+      <input
+        type="number"
+        style={{ margin: 10 }}
+        value={amount}
+        onChange={(e) => {
+          setAmount(e.target.value);
+        }}
+      ></input>
+      <p>
+        $
+        {(crypto.current_price * parseFloat(amount)).toLocaleString(undefined, {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })}
+      </p>
+    </div>
   );
 }
