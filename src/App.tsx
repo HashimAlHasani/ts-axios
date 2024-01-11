@@ -1,19 +1,8 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import axios from "axios";
-
-export type Crypto = {
-  changePercent24Hr: string;
-  explorer: string;
-  id: string;
-  marketCapUsd: string;
-  maxSupply: string;
-  name: string;
-  priceUsd: string;
-  rank: string;
-  symbol: string;
-  volumeUsd24Hr: string;
-};
+import CryptoSummary from "./components/CryptoSummary";
+import { Crypto } from "./Types";
 
 function App() {
   const [cryptos, setCryptos] = useState<Crypto[] | null>();
@@ -29,7 +18,7 @@ function App() {
     <div className="App">
       {cryptos
         ? cryptos.map((crypto) => {
-            return <p>{crypto.name + " $" + +crypto.priceUsd}</p>;
+            return <CryptoSummary crypto={crypto} />;
           })
         : null}
     </div>
