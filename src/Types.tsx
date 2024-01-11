@@ -1,12 +1,20 @@
 export type Crypto = {
-  changePercent24Hr: string;
-  explorer: string;
+  circulating_supply: number;
+  current_price: number;
+  fully_diluted_valuation: number;
+  high_24h: number;
   id: string;
-  marketCapUsd: string;
-  maxSupply: string;
+  image: string;
+  low_24h: number;
+  market_cap: number;
+  market_cap_change_24h: number;
+  market_cap_change_percentage_24h: number;
+  market_cap_rank: number;
+  max_supply: number;
   name: string;
-  priceUsd: string;
-  rank: string;
+  price_change_24h: number;
+  price_change_percentage_24h: number;
   symbol: string;
-  volumeUsd24Hr: string;
+  total_supply: number;
+  total_volume: number;
 };
